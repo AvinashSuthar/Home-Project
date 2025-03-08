@@ -135,19 +135,10 @@ const App = () => {
   }, []);
 
   return (
-    <div className="bg-gray-950 min-h-screen p-6 text-white">
+    <div className="min-h-screen text-white">
       <h1 className="text-2xl font-bold text-center mb-6">Device Control</h1>
-      <div className="flex justify-center mb-4">
-        <button
-          onClick={() => navigate("/history")}
-          className="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold text-sm transition shadow-lg"
-        >
-          View History
-        </button>
-      </div>
-
-      <ul className="space-y-4">
-        {loading ? (
+      <ul className=" flex flex-wrap gap-10 justify-center">
+        {loading ? (  
           <Loading />
         ) : (
           devices.map((device) => (
