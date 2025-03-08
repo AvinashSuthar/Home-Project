@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import formatTime from "../utils/formatTime";
+import Navbar from "../components/Navbar/Navbar";
 
 const History = () => {
   const [history, setHistory] = useState([]);
@@ -29,16 +30,46 @@ const History = () => {
   }
 
   return (
-    <div>
-      {history.map((item, index) => (
-        <div key={index}>
-          <p>Device ID: {item.deviceId}</p>
-          <p>Total Time: {formatTime(item.totaltime)}</p>
-          <p>Total Time: {formatTimestampIST(item.resetTime)}</p>
-          <hr />
-        </div>
-      ))}
-    </div>
+    <>
+
+      <div className="w-full flex flex-wrap justify-center gap-6 p-4">
+        {history.map((item, index) => (
+          <div
+            key={index}
+            className="bg-gray-800 backdrop-blur-lg bg-opacity-50 shadow-xl rounded-2xl p-6 border border-gray-700 w-full sm:w-[48%] md:w-[32%] lg:w-[24%] transition duration-300 hover:shadow-2xl hover:-translate-y-1"
+          >
+            <h3 className="text-lg font-semibold text-gray-300 mb-4 text-center border-b border-gray-600 pb-2">
+              Device Details
+            </h3>
+
+            <div className="space-y-4">
+              <div className="flex flex-col">
+                <p className="text-gray-400 text-sm font-medium">Device ID</p>
+                <p className="text-gray-200 bg-gray-700 rounded-lg px-4 py-2 shadow-inner">
+                  {item.deviceId}
+                </p>
+              </div>
+
+              <div className="flex flex-col">
+                <p className="text-gray-400 text-sm font-medium">Total Time</p>
+                <p className="text-gray-200 bg-gray-700 rounded-lg px-4 py-2 shadow-inner">
+                  {formatTime(item.totaltime)}
+                </p>
+              </div>
+
+              <div className="flex flex-col">
+                <p className="text-gray-400 text-sm font-medium">Reset Time</p>
+                <p className="text-gray-200 bg-gray-700 rounded-lg px-4 py-2 shadow-inner">
+                  {formatTimestampIST(item.resetTime)}
+                </p>
+              </div>
+            </div>
+          </div>
+
+        ))}
+      </div>
+
+    </>
   );
 };
 

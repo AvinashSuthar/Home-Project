@@ -3,12 +3,15 @@ import io from "socket.io-client";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import formatTime from "./utils/formatTime";
+import Loading from "./components/loading";
+import Device from "./components/Device";
 
 const socket = io("https://sutharagriculture.onrender.com"); // Replace with your backend URL
 
 const App = () => {
   const [devices, setDevices] = useState([]);
   const [electricity, setElectricity] = useState("OFF");
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   // Toggle device state
   const toggleDevice = (device) => {
@@ -56,6 +59,8 @@ const App = () => {
       })
       .catch((error) => {
         console.error("Error fetching electricity state:", error);
+      }).finally(() => {
+        setLoading(false);
       });
 
     // Listen for state updates from the server
@@ -64,10 +69,10 @@ const App = () => {
         const updatedDevices = prevDevices.map((device) =>
           device.deviceId === update.deviceId
             ? {
-                ...device,
-                state: update.state,
-                lastStateChange: update.lastStateChange,
-              } // Update the state and last change timestamp
+              ...device,
+              state: update.state,
+              lastStateChange: update.lastStateChange,
+            } // Update the state and last change timestamp
             : device
         );
         return updatedDevices;
@@ -88,11 +93,11 @@ const App = () => {
         const updatedDevices = prevDevices.map((device) =>
           device.deviceId === update.deviceId
             ? {
-                ...device,
-                totalOnTime: update.totalOnTime,
-                originalState: update.originalState,
-                lastStateChange: update.lastStateChange,
-              } // Update the state and last change timestamp
+              ...device,
+              totalOnTime: update.totalOnTime,
+              originalState: update.originalState,
+              lastStateChange: update.lastStateChange,
+            } // Update the state and last change timestamp
             : device
         );
         return updatedDevices;
@@ -108,11 +113,11 @@ const App = () => {
         const updatedDevices = prevDevices.map((device) =>
           device.deviceId === update.deviceId
             ? {
-                ...device,
-                totalOnTime: update.totalOnTime, // Reset the totalOnTime
-                startTime: update.startTime, // Update the start time if provided
-                lastStateChange: update.lastStateChange, // Optionally update if included
-              }
+              ...device,
+              totalOnTime: update.totalOnTime, // Reset the totalOnTime
+              startTime: update.startTime, // Update the start time if provided
+              lastStateChange: update.lastStateChange, // Optionally update if included
+            }
             : device
         );
         return updatedDevices;
@@ -130,39 +135,59 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Device Control</h1>
-      <button onClick={() => navigate("/history")}>History</button>
-      <ul>
-        {devices.map((device) => (
-          <li key={device.deviceId}>
-            <div>
-              <p>DeviceId : {device.deviceId}</p>
-              <p>OriginalState : {device.originalState}</p>
-              <p>TotalOntime : {formatTime(device.totalOnTime)}s</p>
-              <p> StateAt PHone : {device.state}</p>
-              <span> Name : {device.name}: </span>
-              <button onClick={() => toggleDevice(device)}>
-                {device.state}
-              </button>
-              <button onClick={() => handleReset(device)}>ResetTimer</button>
-            </div>
-          </li>
-        ))}
+    <div className="bg-gray-950 min-h-screen p-6 text-white">
+      <h1 className="text-2xl font-bold text-center mb-6">Device Control</h1>
+
+      <ul className="space-y-4">
+        {loading ? (
+          <Loading />
+        ) : (
+          devices.map((device) => (
+            <Device device={device} toggleDevice={toggleDevice} handleReset={handleReset} formatTime={formatTime} />
+          ))
+        )}
       </ul>
-      <div>
-        <p>Total Time </p>
-        {formatTime(Totaltime)}
+
+      <div className="mt-8 p-4 bg-gray-800 rounded-lg text-center border border-gray-700">
+        <p className="text-lg font-semibold text-gray-300">Total Time</p>
+        <p className="text-2xl font-bold text-blue-400">{formatTime(Totaltime)}</p>
       </div>
-      <div>
-        <h2>Electricity</h2>
-        <div>
-          <span>Electricity: </span>
-          {electricity}
+
+      <div className="mt-6 p-6 bg-gray-900/80 backdrop-blur-xl rounded-2xl text-center border border-gray-700 shadow-xl">
+        <h2 className="text-lg font-semibold text-gray-300 tracking-wide flex items-center justify-center space-x-2">
+          <span>Electricity Status</span>
+          <span className="text-yellow-400">
+            ⚡
+          </span>
+        </h2>
+
+        <div className="mt-4 flex flex-col items-center space-y-3">
+          {/* Animated LED Ring */}
+          <div className="relative">
+            <div
+              className={`w-10 h-10 rounded-full border-4 transition-all duration-500 ${electricity === "ON"
+                  ? "border-green-400 shadow-green-500/50 animate-pulse"
+                  : "border-red-400 shadow-red-500/50"
+                }`}
+            ></div>
+
+            <div
+              className={`absolute top-1/2 left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-500 ${electricity === "ON"
+                  ? "bg-green-400 shadow-green-500/50"
+                  : "bg-red-400 shadow-red-500/50"
+                }`}
+            ></div>
+          </div>
+
+          <span className="text-gray-300 font-semibold text-lg tracking-wide">
+            {electricity === "ON" ? "Active" : "Inactive"}
+          </span>
         </div>
       </div>
+
     </div>
   );
+
 };
 
 export default App;
