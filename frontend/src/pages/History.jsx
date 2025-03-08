@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import formatTime from "../utils/formatTime";
+import Navbar from "../components/Navbar/Navbar";
 
 const History = () => {
   const [history, setHistory] = useState([]);
@@ -29,16 +30,29 @@ const History = () => {
   }
 
   return (
-    <div>
-      {history.map((item, index) => (
-        <div key={index}>
-          <p>Device ID: {item.deviceId}</p>
-          <p>Total Time: {formatTime(item.totaltime)}</p>
-          <p>Total Time: {formatTimestampIST(item.resetTime)}</p>
-          <hr />
-        </div>
-      ))}
-    </div>
+    <>
+      <Navbar />
+      <div>
+        {history.map((item, index) => (
+          <div
+            key={index}
+            className="bg-white shadow-md rounded-lg p-4 border border-gray-200 max-w-sm mx-auto"
+          >
+            <p className="text-lg font-semibold text-gray-700">📌 Device ID:
+              <span className="font-normal text-gray-600">{item.deviceId}</span>
+            </p>
+            <p className="text-lg font-semibold text-gray-700">⏳ Total Time:
+              <span className="font-normal text-gray-600">{formatTime(item.totaltime)}</span>
+            </p>
+            <p className="text-lg font-semibold text-gray-700">🔄 Reset Time:
+              <span className="font-normal text-gray-600">{formatTimestampIST(item.resetTime)}</span>
+            </p>
+            <hr className="mt-3 border-gray-300" />
+          </div>
+
+        ))}
+      </div>
+    </>
   );
 };
 
