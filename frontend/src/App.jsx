@@ -153,38 +153,36 @@ const App = () => {
       </div>
 
       <div className="mt-6 p-6 bg-gray-900/80 backdrop-blur-xl rounded-2xl text-center border border-gray-700 shadow-xl">
-  <h2 className="text-lg font-semibold text-gray-300 tracking-wide flex items-center justify-center space-x-2">
-    <span>Electricity Status</span>
-    <span className="text-yellow-400">
-      ⚡
-    </span>
-  </h2>
+        <h2 className="text-lg font-semibold text-gray-300 tracking-wide flex items-center justify-center space-x-2">
+          <span>Electricity Status</span>
+          <span className="text-yellow-400">
+            ⚡
+          </span>
+        </h2>
 
-  <div className="mt-4 flex flex-col items-center space-y-3">
-    {/* Animated LED Ring */}
-    <div className="relative">
-      <div 
-        className={`w-10 h-10 rounded-full border-4 transition-all duration-500 ${
-          electricity === "ON"
-            ? "border-green-400 shadow-green-500/50 animate-pulse"
-            : "border-red-400 shadow-red-500/50"
-        }`}
-      ></div>
-      
-      <div 
-        className={`absolute top-1/2 left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-500 ${
-          electricity === "ON"
-            ? "bg-green-400 shadow-green-500/50"
-            : "bg-red-400 shadow-red-500/50"
-        }`}
-      ></div>
-    </div>
+        <div className="mt-4 flex flex-col items-center space-y-3">
+          {/* Animated LED Ring */}
+          <div className="relative">
+            <div
+              className={`w-10 h-10 rounded-full border-4 transition-all duration-500 ${electricity === "ON"
+                  ? "border-green-400 shadow-green-500/50 animate-pulse"
+                  : "border-red-400 shadow-red-500/50"
+                }`}
+            ></div>
 
-    <span className="text-gray-300 font-semibold text-lg tracking-wide">
-      {electricity === "ON" ? "Active" : "Inactive"}
-    </span>
-  </div>
-</div>
+            <div
+              className={`absolute top-1/2 left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-500 ${electricity === "ON"
+                  ? "bg-green-400 shadow-green-500/50"
+                  : "bg-red-400 shadow-red-500/50"
+                }`}
+            ></div>
+          </div>
+
+          <span className="text-gray-300 font-semibold text-lg tracking-wide">
+            {electricity === "ON" ? "Active" : "Inactive"}
+          </span>
+        </div>
+      </div>
 
     </div>
   );
