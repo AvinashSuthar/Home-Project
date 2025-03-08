@@ -31,27 +31,44 @@ const History = () => {
 
   return (
     <>
-      <Navbar />
-      <div>
+
+      <div className="w-full flex flex-wrap justify-center gap-6 p-4">
         {history.map((item, index) => (
           <div
             key={index}
-            className="bg-white shadow-md rounded-lg p-4 border border-gray-200 max-w-sm mx-auto"
+            className="bg-gray-800 backdrop-blur-lg bg-opacity-50 shadow-xl rounded-2xl p-6 border border-gray-700 w-full sm:w-[48%] md:w-[32%] lg:w-[24%] transition duration-300 hover:shadow-2xl hover:-translate-y-1"
           >
-            <p className="text-lg font-semibold text-gray-700">📌 Device ID:
-              <span className="font-normal text-gray-600">{item.deviceId}</span>
-            </p>
-            <p className="text-lg font-semibold text-gray-700">⏳ Total Time:
-              <span className="font-normal text-gray-600">{formatTime(item.totaltime)}</span>
-            </p>
-            <p className="text-lg font-semibold text-gray-700">🔄 Reset Time:
-              <span className="font-normal text-gray-600">{formatTimestampIST(item.resetTime)}</span>
-            </p>
-            <hr className="mt-3 border-gray-300" />
+            <h3 className="text-lg font-semibold text-gray-300 mb-4 text-center border-b border-gray-600 pb-2">
+              Device Details
+            </h3>
+
+            <div className="space-y-4">
+              <div className="flex flex-col">
+                <p className="text-gray-400 text-sm font-medium">Device ID</p>
+                <p className="text-gray-200 bg-gray-700 rounded-lg px-4 py-2 shadow-inner">
+                  {item.deviceId}
+                </p>
+              </div>
+
+              <div className="flex flex-col">
+                <p className="text-gray-400 text-sm font-medium">Total Time</p>
+                <p className="text-gray-200 bg-gray-700 rounded-lg px-4 py-2 shadow-inner">
+                  {formatTime(item.totaltime)}
+                </p>
+              </div>
+
+              <div className="flex flex-col">
+                <p className="text-gray-400 text-sm font-medium">Reset Time</p>
+                <p className="text-gray-200 bg-gray-700 rounded-lg px-4 py-2 shadow-inner">
+                  {formatTimestampIST(item.resetTime)}
+                </p>
+              </div>
+            </div>
           </div>
 
         ))}
       </div>
+
     </>
   );
 };
