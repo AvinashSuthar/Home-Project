@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import formatTime from "./utils/formatTime";
 import Loading from "./components/loading";
 import Device from "./components/Device";
+import WeatherForecast from "./components/Weather/Weather";
 
 const socket = io("https://sutharagriculture.onrender.com"); // Replace with your backend URL
 
@@ -136,6 +137,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen text-white">
+      <WeatherForecast/>
       <h1 className="text-2xl font-bold text-center mb-6">Device Control</h1>
       <ul className=" flex flex-wrap gap-10 justify-center">
         {loading ? (  

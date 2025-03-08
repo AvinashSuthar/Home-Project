@@ -120,7 +120,7 @@ function Device({ device, toggleDevice, handleReset, formatTime }) {
               className="px-6 py-2 bg-red-500 hover:bg-red-600 rounded-lg font-semibold text-white text-sm shadow-md transition-all transform hover:scale-105"
               disabled={loading}
             >
-              {loading ? "Stopping..." : "Stop Pump"}
+              {loading ? "Stopping..." : "Stop Timer"}
             </button>
           )}
 
