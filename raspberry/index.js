@@ -1,5 +1,5 @@
 let electricity = "OFF";
-
+// only for the prod purpose
 let motorsOriginalState = ["OFF", "OFF", "OFF", "OFF"];
 
 let motorPhoneState = ["OFF", "OFF", "ON", "OFF"];
