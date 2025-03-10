@@ -1,6 +1,6 @@
 let electricity = "OFF";
 // only for the prod purpose
-let motorsOriginalState = ["OFF", "OFF", "OFF", "OFF"];
+let motorsOriginalState = ["ON", "ON", "ON", "ON"];
 
 let motorPhoneState = ["OFF", "OFF", "ON", "OFF"];
 
