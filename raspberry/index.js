@@ -2,7 +2,7 @@ let electricity = "OFF";
 // only for the prod purpose
 let motorsOriginalState = ["ON", "ON", "ON", "ON"];
 
-let motorPhoneState = ["OFF", "OFF", "ON", "OFF"];
+let motorPhoneState = ["OFF", "ON", "ON", "OFF"];
 
 const io = require("socket.io-client");
 const axios = require("axios");
